@@ -1,0 +1,12 @@
+on:
+  workflow_dispatch:
+    inputs:
+      deno-version:
+        type: string
+        required: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      deno-version: ${{ inputs.deno-version }}
