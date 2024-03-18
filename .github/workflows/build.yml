@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest-l
+    runs-on: ubuntu-latest-xxl
     steps:
       - uses: actions/checkout@v4
 
@@ -22,6 +22,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: false
+          load: true
           tags: deno-arm-amazon-linux-2
           build-args: DENO_VERSION=${{ inputs.deno-version }}
           platforms: linux/arm64
