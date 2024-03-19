@@ -33,9 +33,6 @@ jobs:
           docker cp $containerId:/deno/target/release/deno deno
           docker rm $containerId
 
-      - name: create deno file
-        run: echo "mock deno binary" > deno
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
