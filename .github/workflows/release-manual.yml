@@ -4,6 +4,7 @@ on:
       deno-version:
         type: string
         required: true
+        description: Deno version (including leading v)
 
 jobs:
   build:

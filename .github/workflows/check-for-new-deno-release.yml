@@ -1,0 +1,33 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "18 0 * * *"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      latest-deno-version: ${{ steps.check.outputs.latest-deno-version }}
+      release-status: ${{ steps.check.outputs.release-status }}
+    steps:
+      - name: Check for new deno release
+        id: check
+        run: |
+          latest_deno_version=$(gh release view --repo denoland/deno --json tagName --jq ".tagName")
+          echo "latest-deno-version=$latest_deno_version" >> "$GITHUB_OUTPUT"
+
+          version_in_this_repo=$(gh release view $latest_deno_version --repo ${{ github.repository }} --json tagName --jq ".tagName")
+          if [[ "${latest_deno_version}" == "${version_in_this_repo}" ]]
+          then
+            echo "release-status=exists" >> "$GITHUB_OUTPUT"
+          else
+            echo "release-status=new" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs:
+      - check
+    if: ${{ needs.check.outputs.release-status == 'new' }}
+    uses: ./.github/workflows/build.yml
+    with:
+      deno-version: ${{ needs.check.outputs.latest-deno-version }}

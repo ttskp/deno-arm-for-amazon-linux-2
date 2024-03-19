@@ -27,6 +27,6 @@ ENV PATH="${PATH}:/root/.cargo/bin"
 RUN unzip protobuf.zip -d /root/.local
 ENV PATH="${PATH}:/root/.local/bin:"
 
-RUN git clone --recurse-submodules --depth 1 --branch v${DENO_VERSION} https://github.com/denoland/deno.git
+RUN git clone --recurse-submodules --depth 1 --branch ${DENO_VERSION} https://github.com/denoland/deno.git
 
 RUN cd deno && RUST_BACKTRACE=full cargo build --release --locked --bin deno
