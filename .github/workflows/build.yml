@@ -18,20 +18,20 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # - name: Build Docker image
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     push: false
-      #     load: true
-      #     tags: deno-arm-amazon-linux-2
-      #     build-args: DENO_VERSION=${{ inputs.deno-version }}
-      #     platforms: linux/arm64
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          load: true
+          tags: deno-arm-amazon-linux-2
+          build-args: DENO_VERSION=${{ inputs.deno-version }}
+          platforms: linux/arm64
       
-      # - name: Extract deno binary from image
-      #   run: |
-      #     containerId=$(docker create deno-arm-amazon-linux-2)
-      #     docker cp $containerId:/deno/target/release/deno deno
-      #     docker rm $containerId
+      - name: Extract deno binary from image
+        run: |
+          containerId=$(docker create deno-arm-amazon-linux-2)
+          docker cp $containerId:/deno/target/release/deno deno
+          docker rm $containerId
 
       - name: create deno file
         run: echo "mock deno binary" > deno
