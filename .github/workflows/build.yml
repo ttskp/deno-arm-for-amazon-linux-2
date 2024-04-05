@@ -44,7 +44,7 @@ jobs:
         run: zip deno-aarch64-amazon-linux-2-gnu.zip deno
 
       - name: Create release
-        run: gh release create "$DENO_VERSION" --title "v$DENO_VERSION"
+        run: gh release create "$DENO_VERSION" --title "$DENO_VERSION"
         env:
           DENO_VERSION: ${{ inputs.deno-version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
