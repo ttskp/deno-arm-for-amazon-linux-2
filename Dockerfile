@@ -29,4 +29,4 @@ ENV PATH="${PATH}:/root/.local/bin:"
 
 RUN git clone --recurse-submodules --depth 1 --branch ${DENO_VERSION} https://github.com/denoland/deno.git
 
-RUN cd deno && RUST_BACKTRACE=full cargo build --release --locked --bin deno
+RUN cd deno && RUST_BACKTRACE=full cargo build --verbose --release --locked --bin deno
